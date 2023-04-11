@@ -44,7 +44,7 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:text="Button"
+        android:text="Update"
         android:textSize="18sp"
         tools:text="Update User" />
 </LinearLayout>

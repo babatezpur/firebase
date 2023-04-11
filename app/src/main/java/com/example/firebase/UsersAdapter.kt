@@ -1,6 +1,7 @@
 package com.example.firebase
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +26,19 @@ class UsersAdapter(var context : Context,
     }
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
+        println("*******************4444444444")
         holder.adapterBinding.textViewName.text = userList[position].userName
         holder.adapterBinding.textViewAge.text = userList[position].userAge.toString()
         holder.adapterBinding.textViewEmail.text = userList[position].userEmail
+        println("*******************555555555")
+        holder.adapterBinding.linearLayout.setOnClickListener {
+            val intent = Intent(context, UpdateUserActivity::class.java)
+            intent.putExtra("id", userList[position].userID)
+            intent.putExtra("name", userList[position].userName)
+            intent.putExtra("age", userList[position].userAge)
+            intent.putExtra("email", userList[position].userEmail)
+
+            context.startActivity(intent)
+        }
     }
 }

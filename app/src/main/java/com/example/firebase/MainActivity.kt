@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
                     usersAdapter = UsersAdapter(this@MainActivity, userList)
                     mainBinding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+
                     mainBinding.recyclerView.adapter = usersAdapter
                 }
             }
