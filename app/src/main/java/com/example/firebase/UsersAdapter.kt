@@ -5,8 +5,12 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebase.databinding.UsersItemBinding
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class UsersAdapter(var context : Context,
                    var userList : ArrayList<Users>) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
@@ -26,18 +30,32 @@ class UsersAdapter(var context : Context,
     }
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        println("*******************4444444444")
+
         holder.adapterBinding.textViewName.text = userList[position].userName
         holder.adapterBinding.textViewAge.text = userList[position].userAge.toString()
         holder.adapterBinding.textViewEmail.text = userList[position].userEmail
-        println("*******************555555555")
+
+        val imageUrl = userList[position].url
+
+        Picasso.get().load(imageUrl).into(holder.adapterBinding.imageView, object : Callback{
+            override fun onSuccess() {
+                holder.adapterBinding.progressBar.visibility = View.INVISIBLE
+            }
+
+            override fun onError(e: Exception?) {
+                Toast.makeText(context, e?.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
         holder.adapterBinding.linearLayout.setOnClickListener {
             val intent = Intent(context, UpdateUserActivity::class.java)
             intent.putExtra("id", userList[position].userID)
             intent.putExtra("name", userList[position].userName)
             intent.putExtra("age", userList[position].userAge)
             intent.putExtra("email", userList[position].userEmail)
-
+            intent.putExtra("imageUrl", imageUrl)
+            intent.putExtra("imageName",userList[position].imageName)
             context.startActivity(intent)
         }
 
