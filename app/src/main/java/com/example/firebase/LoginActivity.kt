@@ -31,6 +31,11 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
             startActivity(intent)
         }
+
+        loginBinding.buttonForgot.setOnClickListener {
+            val intent = Intent(this@LoginActivity, ForgetActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun signinWithFirebase(userEmail : String, userPassword : String){
@@ -47,5 +52,16 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext,task.exception?.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val user = auth.currentUser
+
+        if(user != null){
+            val intent  = Intent(this@LoginActivity , MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

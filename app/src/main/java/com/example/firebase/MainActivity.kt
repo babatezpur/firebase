@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebase.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class MainActivity : AppCompatActivity() {
@@ -100,6 +101,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.deleteAll){
             showDialogMessage()
+        }else if(item.itemId == R.id.signOut){
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         return super.onOptionsItemSelected(item)
